@@ -17,6 +17,24 @@
 
 完整說明請看 `user_guide.html`。
 
+## 操作截圖
+
+### 1. 開啟工具首頁
+
+![工具首頁](assets/screenshots/01-home.png)
+
+### 2. 上傳基準圖與目標圖
+
+![上傳圖片](assets/screenshots/02-uploaded.png)
+
+### 3. 套用風格並檢視 Before / After
+
+![處理完成](assets/screenshots/03-processed.png)
+
+### 4. 查看使用說明
+
+![使用說明](assets/screenshots/04-user-guide.png)
+
 ## 隱私
 
 圖片處理在瀏覽器本機 Canvas 內完成，沒有內建伺服器上傳流程。
