@@ -10,10 +10,13 @@
 - Surface Blur + Sobel 卡通線條後處理
 - Before / After 拖曳分割預覽
 - PNG 單張或批次下載
+- 多語言介面：繁體中文、简体中文、English、日本語、한국어
 
 ## 使用方式
 
 直接開啟 `index.html`，或啟用 GitHub Pages 後從瀏覽器使用。
+
+右上角可切換介面語言，方便不同地區的使用者閱讀與操作。
 
 完整說明請看 `user_guide.html`。
 

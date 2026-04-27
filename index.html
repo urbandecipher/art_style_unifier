@@ -61,6 +61,16 @@ button,input,select{font:inherit}
   font-size:12px;
   text-align:center;
 }
+.language-select{
+  min-width:148px;
+  min-height:36px;
+  color:var(--text);
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:0 12px;
+}
+.top-actions{display:flex;align-items:center;gap:10px}
 .hero{
   display:grid;
   grid-template-columns:minmax(0,1.04fr) minmax(360px,.96fr);
@@ -369,7 +379,7 @@ input[type=file]{display:none}
 }
 @media (max-width:640px){
   .app{width:min(100% - 24px,1440px);padding-top:18px}
-  .topbar,.actionbar{align-items:stretch;flex-direction:column}
+  .topbar,.actionbar,.top-actions{align-items:stretch;flex-direction:column}
   .status-pill{min-width:0}
   .hero-copy h2{font-size:38px}
   .hero-copy p{font-size:15px}
@@ -392,36 +402,45 @@ input[type=file]{display:none}
         <span>Local Canvas Edition</span>
       </div>
     </div>
-    <div class="status-pill" id="topStatus">等待基準圖與目標圖</div>
+    <div class="top-actions">
+      <select class="language-select" id="langSelect" aria-label="Language">
+        <option value="zh-Hant">繁體中文</option>
+        <option value="zh-Hans">简体中文</option>
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+      </select>
+      <div class="status-pill" id="topStatus" data-i18n="status.waiting">等待基準圖與目標圖</div>
+    </div>
   </header>
 
   <section class="hero">
     <div class="hero-copy">
-      <h2>把不同圖片，統一成同一套視覺語言。</h2>
-      <p>以一張基準圖為風格來源，將色調、顆粒與卡通線條感套用到整批目標圖。所有處理都在瀏覽器本機完成。</p>
+      <h2 data-i18n="hero.title">把不同圖片，統一成同一套視覺語言。</h2>
+      <p data-i18n="hero.subtitle">以一張基準圖為風格來源，將色調、顆粒與卡通線條感套用到整批目標圖。所有處理都在瀏覽器本機完成。</p>
       <div class="hero-actions">
         <button class="btn primary" onclick="document.getElementById('ri').click()">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-          選擇基準圖
+          <span data-i18n="button.chooseRef">選擇基準圖</span>
         </button>
         <button class="btn ghost" onclick="document.getElementById('ti').click()">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
-          加入目標圖
+          <span data-i18n="button.addTargets">加入目標圖</span>
         </button>
       </div>
     </div>
     <div class="metrics">
-      <div class="metric"><b id="mRef">0</b><span>基準圖</span></div>
-      <div class="metric"><b id="mTargets">0</b><span>目標圖</span></div>
-      <div class="metric"><b id="mDone">0</b><span>完成輸出</span></div>
+      <div class="metric"><b id="mRef">0</b><span data-i18n="metric.ref">基準圖</span></div>
+      <div class="metric"><b id="mTargets">0</b><span data-i18n="metric.targets">目標圖</span></div>
+      <div class="metric"><b id="mDone">0</b><span data-i18n="metric.done">完成輸出</span></div>
     </div>
   </section>
 
   <section class="workspace">
     <div class="main">
       <div class="section-title">
-        <h3>圖片輸入</h3>
-        <span>支援 JPG、PNG、WebP 等瀏覽器可讀格式</span>
+        <h3 data-i18n="section.input">圖片輸入</h3>
+        <span data-i18n="section.inputHint">支援 JPG、PNG、WebP 等瀏覽器可讀格式</span>
       </div>
       <div class="upload-grid">
         <div class="drop" id="rz" onclick="document.getElementById('ri').click()">
@@ -429,39 +448,39 @@ input[type=file]{display:none}
           <canvas id="rc" style="display:none"></canvas>
           <div id="rph" class="placeholder">
             <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
-            <strong>上傳基準圖</strong>
-            <span>色調統計與風格方向會以這張圖片為準</span>
+            <strong data-i18n="upload.refTitle">上傳基準圖</strong>
+            <span data-i18n="upload.refHint">色調統計與風格方向會以這張圖片為準</span>
           </div>
         </div>
         <div class="target-panel">
           <div class="target-head">
-            <b>目標圖片</b>
-            <button class="btn" onclick="document.getElementById('ti').click()">新增圖片</button>
+            <b data-i18n="upload.targetTitle">目標圖片</b>
+            <button class="btn" onclick="document.getElementById('ti').click()" data-i18n="button.addImage">新增圖片</button>
           </div>
           <div class="target-grid" id="tg">
-            <div class="empty">尚未加入目標圖</div>
+            <div class="empty" data-i18n="empty.targets">尚未加入目標圖</div>
           </div>
         </div>
       </div>
 
       <div class="preview-section" id="pvsec">
         <div class="section-title">
-          <h3>Before / After 預覽</h3>
-          <span>拖曳中線比較原圖與處理結果</span>
+          <h3 data-i18n="preview.title">Before / After 預覽</h3>
+          <span data-i18n="preview.hint">拖曳中線比較原圖與處理結果</span>
         </div>
         <div class="preview-shell" id="pw">
           <canvas id="bc"></canvas>
           <canvas id="ac"></canvas>
           <div class="divider" id="dv" style="left:50%"></div>
-          <div class="corner-label left">原圖</div>
-          <div class="corner-label right">處理後</div>
+          <div class="corner-label left" data-i18n="preview.before">原圖</div>
+          <div class="corner-label right" data-i18n="preview.after">處理後</div>
         </div>
       </div>
 
       <div class="download-section" id="dlsec">
         <div class="section-title">
-          <h3>下載結果</h3>
-          <span>輸出 PNG 檔案</span>
+          <h3 data-i18n="download.title">下載結果</h3>
+          <span data-i18n="download.hint">輸出 PNG 檔案</span>
         </div>
         <div class="download-row" id="dlrow"></div>
       </div>
@@ -469,53 +488,87 @@ input[type=file]{display:none}
 
     <aside class="side">
       <div class="section-title">
-        <h3>風格控制</h3>
-        <span>商業輸出設定</span>
+        <h3 data-i18n="controls.title">風格控制</h3>
+        <span data-i18n="controls.hint">商業輸出設定</span>
       </div>
 
       <div class="panel">
         <div class="panel-head">
-          <div class="panel-title"><b>色調遷移</b><span class="tag blue">Oklab</span></div>
+          <div class="panel-title"><b data-i18n="color.title">色調遷移</b><span class="tag blue">Oklab</span></div>
           <div class="toggle on" id="tc" onclick="togglePanel(this)"></div>
         </div>
-        <div class="control"><label>L 明度</label><input type="range" min="0" max="100" value="80" id="sl" step="1"><span id="sl-v">80%</span></div>
-        <div class="control"><label>a 冷暖</label><input type="range" min="0" max="100" value="75" id="sa" step="1"><span id="sa-v">75%</span></div>
-        <div class="control"><label>b 飽和</label><input type="range" min="0" max="100" value="70" id="sb" step="1"><span id="sb-v">70%</span></div>
-        <div class="select-row"><label>模式</label><select id="cm"><option value="oklab">Oklab 統計遷移</option><option value="hist">直方圖匹配</option></select></div>
+        <div class="control"><label data-i18n="color.lightness">L 明度</label><input type="range" min="0" max="100" value="80" id="sl" step="1"><span id="sl-v">80%</span></div>
+        <div class="control"><label data-i18n="color.warmth">a 冷暖</label><input type="range" min="0" max="100" value="75" id="sa" step="1"><span id="sa-v">75%</span></div>
+        <div class="control"><label data-i18n="color.saturation">b 飽和</label><input type="range" min="0" max="100" value="70" id="sb" step="1"><span id="sb-v">70%</span></div>
+        <div class="select-row"><label data-i18n="color.mode">模式</label><select id="cm"><option value="oklab" data-i18n="color.modeOklab">Oklab 統計遷移</option><option value="hist" data-i18n="color.modeHist">直方圖匹配</option></select></div>
       </div>
 
       <div class="panel">
         <div class="panel-head">
-          <div class="panel-title"><b>顆粒匹配</b><span class="tag">Grain</span></div>
+          <div class="panel-title"><b data-i18n="grain.title">顆粒匹配</b><span class="tag">Grain</span></div>
           <div class="toggle" id="tg2" onclick="togglePanel(this)"></div>
         </div>
-        <div class="control"><label>強度</label><input type="range" min="0" max="60" value="18" id="gg" step="1"><span id="gg-v">18</span></div>
-        <div class="control"><label>大小</label><input type="range" min="1" max="4" value="1" id="gs" step="0.5"><span id="gs-v">1.0</span></div>
-        <div class="select-row"><label>類型</label><select id="gt"><option value="luma">Luma Grain 明度顆粒</option><option value="color">Color Grain 彩色顆粒</option><option value="film">Film Halation 底片光暈</option></select></div>
-        <div class="hint">建議強度 12 到 25。若想要明顯的底片質感，再往上調整。</div>
+        <div class="control"><label data-i18n="grain.amount">強度</label><input type="range" min="0" max="60" value="18" id="gg" step="1"><span id="gg-v">18</span></div>
+        <div class="control"><label data-i18n="grain.size">大小</label><input type="range" min="1" max="4" value="1" id="gs" step="0.5"><span id="gs-v">1.0</span></div>
+        <div class="select-row"><label data-i18n="grain.type">類型</label><select id="gt"><option value="luma" data-i18n="grain.luma">Luma Grain 明度顆粒</option><option value="color" data-i18n="grain.color">Color Grain 彩色顆粒</option><option value="film" data-i18n="grain.film">Film Halation 底片光暈</option></select></div>
+        <div class="hint" data-i18n="grain.hint">建議強度 12 到 25。若想要明顯的底片質感，再往上調整。</div>
       </div>
 
       <div class="panel">
         <div class="panel-head">
-          <div class="panel-title"><b>卡通渲染</b><span class="tag gold">Toon</span></div>
+          <div class="panel-title"><b data-i18n="toon.title">卡通渲染</b><span class="tag gold">Toon</span></div>
           <div class="toggle" id="tt" onclick="togglePanel(this)"></div>
         </div>
-        <div class="control"><label>平滑</label><input type="range" min="0" max="8" value="2" id="tbl" step="1"><span id="tbl-v">2</span></div>
-        <div class="control"><label>邊線</label><input type="range" min="0" max="100" value="40" id="te" step="1"><span id="te-v">40%</span></div>
-        <div class="control"><label>粗細</label><input type="range" min="1" max="4" value="1" id="tw" step="1"><span id="tw-v">1px</span></div>
-        <div class="select-row"><label>線色</label><select id="tec"><option value="dark">暗色線條</option><option value="black">黑色線條</option><option value="colored">彩色描邊</option></select></div>
-        <div class="hint">使用 Surface Blur 與 Sobel 邊緣提取，適合統一 AI 背景與角色圖的線條語言。</div>
+        <div class="control"><label data-i18n="toon.blur">平滑</label><input type="range" min="0" max="8" value="2" id="tbl" step="1"><span id="tbl-v">2</span></div>
+        <div class="control"><label data-i18n="toon.edge">邊線</label><input type="range" min="0" max="100" value="40" id="te" step="1"><span id="te-v">40%</span></div>
+        <div class="control"><label data-i18n="toon.width">粗細</label><input type="range" min="1" max="4" value="1" id="tw" step="1"><span id="tw-v">1px</span></div>
+        <div class="select-row"><label data-i18n="toon.colorLabel">線色</label><select id="tec"><option value="dark" data-i18n="toon.dark">暗色線條</option><option value="black" data-i18n="toon.black">黑色線條</option><option value="colored" data-i18n="toon.colored">彩色描邊</option></select></div>
+        <div class="hint" data-i18n="toon.hint">使用 Surface Blur 與 Sobel 邊緣提取，適合統一 AI 背景與角色圖的線條語言。</div>
       </div>
 
       <div class="actionbar">
-        <div class="status-pill" id="inf">請先上傳基準圖</div>
-        <button class="btn primary" id="pb" disabled onclick="processAll()">套用風格</button>
+        <div class="status-pill" id="inf" data-i18n="status.needRef">請先上傳基準圖</div>
+        <button class="btn primary" id="pb" disabled onclick="processAll()" data-i18n="button.apply">套用風格</button>
       </div>
     </aside>
   </section>
 </main>
 
 <script>
+const translations={
+  'zh-Hant':{
+    'status.waiting':'等待基準圖與目標圖','hero.title':'把不同圖片，統一成同一套視覺語言。','hero.subtitle':'以一張基準圖為風格來源，將色調、顆粒與卡通線條感套用到整批目標圖。所有處理都在瀏覽器本機完成。','button.chooseRef':'選擇基準圖','button.addTargets':'加入目標圖','metric.ref':'基準圖','metric.targets':'目標圖','metric.done':'完成輸出','section.input':'圖片輸入','section.inputHint':'支援 JPG、PNG、WebP 等瀏覽器可讀格式','upload.refTitle':'上傳基準圖','upload.refHint':'色調統計與風格方向會以這張圖片為準','upload.targetTitle':'目標圖片','button.addImage':'新增圖片','empty.targets':'尚未加入目標圖','preview.title':'Before / After 預覽','preview.hint':'拖曳中線比較原圖與處理結果','preview.before':'原圖','preview.after':'處理後','download.title':'下載結果','download.hint':'輸出 PNG 檔案','controls.title':'風格控制','controls.hint':'商業輸出設定','color.title':'色調遷移','color.lightness':'L 明度','color.warmth':'a 冷暖','color.saturation':'b 飽和','color.mode':'模式','color.modeOklab':'Oklab 統計遷移','color.modeHist':'直方圖匹配','grain.title':'顆粒匹配','grain.amount':'強度','grain.size':'大小','grain.type':'類型','grain.luma':'Luma Grain 明度顆粒','grain.color':'Color Grain 彩色顆粒','grain.film':'Film Halation 底片光暈','grain.hint':'建議強度 12 到 25。若想要明顯的底片質感，再往上調整。','toon.title':'卡通渲染','toon.blur':'平滑','toon.edge':'邊線','toon.width':'粗細','toon.colorLabel':'線色','toon.dark':'暗色線條','toon.black':'黑色線條','toon.colored':'彩色描邊','toon.hint':'使用 Surface Blur 與 Sobel 邊緣提取，適合統一 AI 背景與角色圖的線條語言。','status.needRef':'請先上傳基準圖','status.needTargets':'請加入目標圖','status.ready':'基準就緒，{count} 張待處理','status.done':'已完成 {count} 張輸出','status.processing':'處理中...','status.applying':'正在套用風格','status.complete':'完成！已處理 {count} 張','status.completeTop':'完成 {count} 張圖片','button.apply':'套用風格','thumb.done':'完成','thumb.pending':'待處理','thumb.remove':'移除','download.item':'下載 圖{count}','download.all':'下載全部'
+  },
+  'zh-Hans':{
+    'status.waiting':'等待基准图与目标图','hero.title':'把不同图片，统一成同一套视觉语言。','hero.subtitle':'以一张基准图作为风格来源，将色调、颗粒与卡通线条感套用到整批目标图。所有处理都在浏览器本机完成。','button.chooseRef':'选择基准图','button.addTargets':'加入目标图','metric.ref':'基准图','metric.targets':'目标图','metric.done':'完成输出','section.input':'图片输入','section.inputHint':'支持 JPG、PNG、WebP 等浏览器可读格式','upload.refTitle':'上传基准图','upload.refHint':'色调统计与风格方向会以这张图片为准','upload.targetTitle':'目标图片','button.addImage':'新增图片','empty.targets':'尚未加入目标图','preview.title':'Before / After 预览','preview.hint':'拖动中线比较原图与处理结果','preview.before':'原图','preview.after':'处理后','download.title':'下载结果','download.hint':'输出 PNG 文件','controls.title':'风格控制','controls.hint':'商业输出设置','color.title':'色调迁移','color.lightness':'L 明度','color.warmth':'a 冷暖','color.saturation':'b 饱和','color.mode':'模式','color.modeOklab':'Oklab 统计迁移','color.modeHist':'直方图匹配','grain.title':'颗粒匹配','grain.amount':'强度','grain.size':'大小','grain.type':'类型','grain.luma':'Luma Grain 明度颗粒','grain.color':'Color Grain 彩色颗粒','grain.film':'Film Halation 底片光晕','grain.hint':'建议强度 12 到 25。若想要明显的底片质感，再往上调整。','toon.title':'卡通渲染','toon.blur':'平滑','toon.edge':'边线','toon.width':'粗细','toon.colorLabel':'线色','toon.dark':'暗色线条','toon.black':'黑色线条','toon.colored':'彩色描边','toon.hint':'使用 Surface Blur 与 Sobel 边缘提取，适合统一 AI 背景与角色图的线条语言。','status.needRef':'请先上传基准图','status.needTargets':'请加入目标图','status.ready':'基准就绪，{count} 张待处理','status.done':'已完成 {count} 张输出','status.processing':'处理中...','status.applying':'正在套用风格','status.complete':'完成！已处理 {count} 张','status.completeTop':'完成 {count} 张图片','button.apply':'套用风格','thumb.done':'完成','thumb.pending':'待处理','thumb.remove':'移除','download.item':'下载 图{count}','download.all':'下载全部'
+  },
+  en:{
+    'status.waiting':'Waiting for reference and target images','hero.title':'Unify different images into one visual language.','hero.subtitle':'Use one reference image as the style source, then apply color tone, grain, and toon-line consistency to a batch of target images. Everything runs locally in your browser.','button.chooseRef':'Choose Reference','button.addTargets':'Add Targets','metric.ref':'Reference','metric.targets':'Targets','metric.done':'Completed','section.input':'Image Input','section.inputHint':'Supports JPG, PNG, WebP, and other browser-readable formats','upload.refTitle':'Upload Reference','upload.refHint':'Color statistics and style direction are based on this image','upload.targetTitle':'Target Images','button.addImage':'Add Images','empty.targets':'No target images yet','preview.title':'Before / After Preview','preview.hint':'Drag the divider to compare original and processed result','preview.before':'Original','preview.after':'Processed','download.title':'Download Results','download.hint':'Exports PNG files','controls.title':'Style Controls','controls.hint':'Commercial output settings','color.title':'Color Transfer','color.lightness':'L Lightness','color.warmth':'a Warmth','color.saturation':'b Saturation','color.mode':'Mode','color.modeOklab':'Oklab statistical transfer','color.modeHist':'Histogram matching','grain.title':'Grain Matching','grain.amount':'Amount','grain.size':'Size','grain.type':'Type','grain.luma':'Luma Grain','grain.color':'Color Grain','grain.film':'Film Halation','grain.hint':'Recommended amount: 12 to 25. Increase it for a stronger film texture.','toon.title':'Toon Shading','toon.blur':'Smooth','toon.edge':'Edges','toon.width':'Width','toon.colorLabel':'Line Color','toon.dark':'Dark lines','toon.black':'Black lines','toon.colored':'Colored outline','toon.hint':'Surface Blur plus Sobel edge extraction helps align AI backgrounds and character art.','status.needRef':'Please upload a reference image first','status.needTargets':'Please add target images','status.ready':'Reference ready, {count} image(s) waiting','status.done':'{count} output(s) completed','status.processing':'Processing...','status.applying':'Applying style','status.complete':'Done! Processed {count} image(s)','status.completeTop':'Completed {count} image(s)','button.apply':'Apply Style','thumb.done':'Done','thumb.pending':'Pending','thumb.remove':'Remove','download.item':'Download Image {count}','download.all':'Download All'
+  },
+  ja:{
+    'status.waiting':'基準画像と対象画像を待機中','hero.title':'異なる画像を、ひとつの視覚言語へ統一。','hero.subtitle':'1枚の基準画像をスタイル元にして、色調、粒子感、トゥーン線の一貫性を対象画像へまとめて適用します。処理はすべてブラウザ上でローカルに実行されます。','button.chooseRef':'基準画像を選択','button.addTargets':'対象画像を追加','metric.ref':'基準画像','metric.targets':'対象画像','metric.done':'出力完了','section.input':'画像入力','section.inputHint':'JPG、PNG、WebP などブラウザで読める形式に対応','upload.refTitle':'基準画像をアップロード','upload.refHint':'色調統計とスタイル方向はこの画像を基準にします','upload.targetTitle':'対象画像','button.addImage':'画像を追加','empty.targets':'対象画像はまだありません','preview.title':'Before / After プレビュー','preview.hint':'中央線をドラッグして元画像と処理後を比較','preview.before':'元画像','preview.after':'処理後','download.title':'結果をダウンロード','download.hint':'PNG ファイルとして出力','controls.title':'スタイル調整','controls.hint':'商用出力向け設定','color.title':'色調転送','color.lightness':'L 明度','color.warmth':'a 寒暖','color.saturation':'b 彩度','color.mode':'モード','color.modeOklab':'Oklab 統計転送','color.modeHist':'ヒストグラムマッチング','grain.title':'粒子マッチング','grain.amount':'強度','grain.size':'サイズ','grain.type':'種類','grain.luma':'Luma Grain 明度粒子','grain.color':'Color Grain 色粒子','grain.film':'Film Halation フィルム光暈','grain.hint':'推奨強度は 12〜25。フィルム感を強めたい場合は上げてください。','toon.title':'トゥーンシェーディング','toon.blur':'平滑化','toon.edge':'輪郭','toon.width':'太さ','toon.colorLabel':'線色','toon.dark':'暗色線','toon.black':'黒線','toon.colored':'カラー輪郭','toon.hint':'Surface Blur と Sobel エッジ抽出で、AI 背景とキャラクター画像の線の質感を揃えます。','status.needRef':'先に基準画像をアップロードしてください','status.needTargets':'対象画像を追加してください','status.ready':'基準準備完了、{count} 枚が処理待ち','status.done':'{count} 件の出力が完了','status.processing':'処理中...','status.applying':'スタイルを適用中','status.complete':'完了！{count} 枚を処理しました','status.completeTop':'{count} 枚の画像が完了','button.apply':'スタイルを適用','thumb.done':'完了','thumb.pending':'待機中','thumb.remove':'削除','download.item':'画像{count}をダウンロード','download.all':'すべてダウンロード'
+  },
+  ko:{
+    'status.waiting':'기준 이미지와 대상 이미지를 기다리는 중','hero.title':'서로 다른 이미지를 하나의 시각 언어로 통합하세요.','hero.subtitle':'기준 이미지 한 장을 스타일 소스로 사용해 색조, 그레인, 툰 라인 감각을 대상 이미지 묶음에 적용합니다. 모든 처리는 브라우저에서 로컬로 실행됩니다.','button.chooseRef':'기준 이미지 선택','button.addTargets':'대상 이미지 추가','metric.ref':'기준 이미지','metric.targets':'대상 이미지','metric.done':'완료된 출력','section.input':'이미지 입력','section.inputHint':'JPG, PNG, WebP 등 브라우저에서 읽을 수 있는 형식 지원','upload.refTitle':'기준 이미지 업로드','upload.refHint':'색조 통계와 스타일 방향은 이 이미지를 기준으로 합니다','upload.targetTitle':'대상 이미지','button.addImage':'이미지 추가','empty.targets':'아직 대상 이미지가 없습니다','preview.title':'Before / After 미리보기','preview.hint':'중앙선을 드래그해 원본과 처리 결과를 비교하세요','preview.before':'원본','preview.after':'처리 후','download.title':'결과 다운로드','download.hint':'PNG 파일로 출력','controls.title':'스타일 제어','controls.hint':'상업용 출력 설정','color.title':'색조 전송','color.lightness':'L 명도','color.warmth':'a 온도','color.saturation':'b 채도','color.mode':'모드','color.modeOklab':'Oklab 통계 전송','color.modeHist':'히스토그램 매칭','grain.title':'그레인 매칭','grain.amount':'강도','grain.size':'크기','grain.type':'유형','grain.luma':'Luma Grain 명도 그레인','grain.color':'Color Grain 컬러 그레인','grain.film':'Film Halation 필름 헤일레이션','grain.hint':'권장 강도는 12~25입니다. 더 강한 필름 질감을 원하면 높여 보세요.','toon.title':'툰 셰이딩','toon.blur':'부드럽게','toon.edge':'윤곽선','toon.width':'두께','toon.colorLabel':'선 색상','toon.dark':'어두운 선','toon.black':'검은 선','toon.colored':'컬러 외곽선','toon.hint':'Surface Blur와 Sobel 에지 추출로 AI 배경과 캐릭터 이미지의 선 표현을 맞춥니다.','status.needRef':'먼저 기준 이미지를 업로드하세요','status.needTargets':'대상 이미지를 추가하세요','status.ready':'기준 준비 완료, {count}장 처리 대기','status.done':'출력 {count}개 완료','status.processing':'처리 중...','status.applying':'스타일 적용 중','status.complete':'완료! {count}장을 처리했습니다','status.completeTop':'이미지 {count}장 완료','button.apply':'스타일 적용','thumb.done':'완료','thumb.pending':'대기 중','thumb.remove':'삭제','download.item':'이미지 {count} 다운로드','download.all':'전체 다운로드'
+  }
+};
+let currentLang=localStorage.getItem('asu-lang')||'zh-Hant';
+function tr(key,vars={}){
+  const dict=translations[currentLang]||translations['zh-Hant'];
+  let text=dict[key]||translations['zh-Hant'][key]||key;
+  Object.keys(vars).forEach(k=>{text=text.replaceAll(`{${k}}`,vars[k]);});
+  return text;
+}
+function applyLanguage(lang){
+  currentLang=translations[lang]?lang:'zh-Hant';
+  document.documentElement.lang=currentLang;
+  localStorage.setItem('asu-lang',currentLang);
+  byId('langSelect').value=currentLang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=tr(el.dataset.i18n);});
+  chk();
+  renderT();
+  buildDL();
+}
 let refImg=null,refSt=null,targets=[],dragging=false,divX=0.5;
 
 function togglePanel(el){el.classList.toggle('on')}
@@ -524,6 +577,7 @@ function bs(id,oid,fmt){const el=byId(id);const u=()=>{const v=parseFloat(el.val
 bs('sl','sl-v',v=>Math.round(v)+'%');bs('sa','sa-v',v=>Math.round(v)+'%');bs('sb','sb-v',v=>Math.round(v)+'%');
 bs('gg','gg-v',v=>Math.round(v));bs('gs','gs-v',v=>v.toFixed(1));
 bs('tbl','tbl-v',v=>Math.round(v));bs('te','te-v',v=>Math.round(v)+'%');bs('tw','tw-v',v=>Math.round(v)+'px');
+byId('langSelect').onchange=e=>applyLanguage(e.target.value);
 
 byId('ri').onchange=e=>{
   const f=e.target.files[0];if(!f)return;
@@ -551,7 +605,7 @@ function addT(img,name){
 }
 function renderT(){
   const g=byId('tg');
-  if(!targets.length){g.innerHTML='<div class="empty">尚未加入目標圖</div>';return;}
+  if(!targets.length){g.innerHTML=`<div class="empty">${tr('empty.targets')}</div>`;return;}
   g.innerHTML='';
   targets.forEach(t=>{
     const w=document.createElement('div');w.className='thumb';
@@ -559,9 +613,9 @@ function renderT(){
     const pv=document.createElement('canvas');
     pv.width=src.width;pv.height=src.height;pv.getContext('2d').drawImage(src,0,0);
     w.onclick=()=>{if(t.done)showPV(t);};
-    const rm=document.createElement('button');rm.className='remove';rm.textContent='×';rm.title='移除';
+    const rm=document.createElement('button');rm.className='remove';rm.textContent='×';rm.title=tr('thumb.remove');
     rm.onclick=ev=>{ev.stopPropagation();targets=targets.filter(x=>x.id!==t.id);renderT();chk();};
-    const badge=document.createElement('div');badge.className='badge '+(t.done?'done':'');badge.textContent=t.done?'完成':'待處理';
+    const badge=document.createElement('div');badge.className='badge '+(t.done?'done':'');badge.textContent=t.done?tr('thumb.done'):tr('thumb.pending');
     w.appendChild(pv);w.appendChild(rm);w.appendChild(badge);g.appendChild(w);
   });
 }
@@ -572,9 +626,9 @@ function chk(){
   byId('mRef').textContent=refImg?1:0;
   byId('mTargets').textContent=targets.length;
   byId('mDone').textContent=done;
-  const msg=!refImg?'請先上傳基準圖':!targets.length?'請加入目標圖':`基準就緒，${targets.length} 張待處理`;
+  const msg=!refImg?tr('status.needRef'):!targets.length?tr('status.needTargets'):tr('status.ready',{count:targets.length});
   byId('inf').textContent=msg;
-  byId('topStatus').textContent=done?`已完成 ${done} 張輸出`:msg;
+  byId('topStatus').textContent=done?tr('status.done',{count:done}):msg;
 }
 
 function lin(c){return c<=0.04045?c/12.92:Math.pow((c+0.055)/1.055,2.4)}
@@ -677,7 +731,7 @@ function processAll(){
   const gAmt=parseInt(byId('gg').value),gSz=parseFloat(byId('gs').value),gt=byId('gt').value;
   const tbR=parseInt(byId('tbl').value),teS=parseInt(byId('te').value),twW=parseInt(byId('tw').value),tec=byId('tec').value;
   const refC=byId('rc');
-  byId('pb').disabled=true;byId('inf').textContent='處理中...';byId('topStatus').textContent='正在套用風格';
+  byId('pb').disabled=true;byId('inf').textContent=tr('status.processing');byId('topStatus').textContent=tr('status.applying');
   setTimeout(()=>{
     targets.forEach(t=>{
       const wc=document.createElement('canvas');wc.width=t.orig.width;wc.height=t.orig.height;wc.getContext('2d').drawImage(t.orig,0,0);
@@ -688,8 +742,8 @@ function processAll(){
     });
     renderT();buildDL();if(targets.length)showPV(targets[0]);
     byId('pb').disabled=false;
-    byId('inf').textContent=`完成！已處理 ${targets.length} 張`;
-    byId('topStatus').textContent=`完成 ${targets.length} 張圖片`;
+    byId('inf').textContent=tr('status.complete',{count:targets.length});
+    byId('topStatus').textContent=tr('status.completeTop',{count:targets.length});
     chk();
   },20);
 }
@@ -715,10 +769,13 @@ document.addEventListener('touchend',()=>{dragging=false;});
 
 function buildDL(){
   const row=byId('dlrow');row.innerHTML='';
-  targets.filter(t=>t.done).forEach((t,i)=>{const a=document.createElement('a');a.href=t.url;a.download=`unified_${i+1}.png`;a.className='btn';a.textContent=`下載 圖${i+1}`;row.appendChild(a);});
-  if(targets.filter(t=>t.done).length>1){const b=document.createElement('button');b.className='btn primary';b.textContent='下載全部';b.onclick=()=>targets.filter(t=>t.done).forEach((t,i)=>{const a=document.createElement('a');a.href=t.url;a.download=`unified_${i+1}.png`;document.body.appendChild(a);a.click();a.remove();});row.appendChild(b);}
+  const doneTargets=targets.filter(t=>t.done);
+  if(!doneTargets.length){byId('dlsec').style.display='none';return;}
+  doneTargets.forEach((t,i)=>{const a=document.createElement('a');a.href=t.url;a.download=`unified_${i+1}.png`;a.className='btn';a.textContent=tr('download.item',{count:i+1});row.appendChild(a);});
+  if(doneTargets.length>1){const b=document.createElement('button');b.className='btn primary';b.textContent=tr('download.all');b.onclick=()=>doneTargets.forEach((t,i)=>{const a=document.createElement('a');a.href=t.url;a.download=`unified_${i+1}.png`;document.body.appendChild(a);a.click();a.remove();});row.appendChild(b);}
   byId('dlsec').style.display='block';
 }
+applyLanguage(currentLang);
 </script>
 </body>
 </html>
