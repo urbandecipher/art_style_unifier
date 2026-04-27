@@ -14,7 +14,7 @@ Open the app in a specific language:
 - [Japanese](index.html?lang=ja)
 - [Korean](index.html?lang=ko)
 
-The language selector is also available in the top-right corner of the web page.
+The top-right language selector can also switch the page language.
 
 ## Features
 
@@ -24,7 +24,7 @@ The language selector is also available in the top-right corner of the web page.
 - Surface Blur + Sobel toon-line post-processing
 - Draggable Before / After preview
 - Single-image or batch PNG download
-- UI languages: Traditional Chinese, Simplified Chinese, English, Japanese, Korean
+- Supports Traditional Chinese, Simplified Chinese, English, Japanese, and Korean
 
 ## Usage
 
@@ -34,21 +34,11 @@ Full instructions are available in `user_guide.html`.
 
 ## Screenshots
 
-### 1. Home
-
 ![Home](assets/screenshots/01-home.png)
-
-### 2. Upload Reference And Targets
 
 ![Upload](assets/screenshots/02-uploaded.png)
 
-### 3. Apply Style And Compare Before / After
-
 ![Processed](assets/screenshots/03-processed.png)
-
-### 4. User Guide
-
-![User Guide](assets/screenshots/04-user-guide.png)
 
 ## Privacy
 

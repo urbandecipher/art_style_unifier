@@ -552,7 +552,8 @@ const translations={
     'status.waiting':'기준 이미지와 대상 이미지를 기다리는 중','hero.title':'서로 다른 이미지를 하나의 시각 언어로 통합하세요.','hero.subtitle':'기준 이미지 한 장을 스타일 소스로 사용해 색조, 그레인, 툰 라인 감각을 대상 이미지 묶음에 적용합니다. 모든 처리는 브라우저에서 로컬로 실행됩니다.','button.chooseRef':'기준 이미지 선택','button.addTargets':'대상 이미지 추가','metric.ref':'기준 이미지','metric.targets':'대상 이미지','metric.done':'완료된 출력','section.input':'이미지 입력','section.inputHint':'JPG, PNG, WebP 등 브라우저에서 읽을 수 있는 형식 지원','upload.refTitle':'기준 이미지 업로드','upload.refHint':'색조 통계와 스타일 방향은 이 이미지를 기준으로 합니다','upload.targetTitle':'대상 이미지','button.addImage':'이미지 추가','empty.targets':'아직 대상 이미지가 없습니다','preview.title':'Before / After 미리보기','preview.hint':'중앙선을 드래그해 원본과 처리 결과를 비교하세요','preview.before':'원본','preview.after':'처리 후','download.title':'결과 다운로드','download.hint':'PNG 파일로 출력','controls.title':'스타일 제어','controls.hint':'상업용 출력 설정','color.title':'색조 전송','color.lightness':'L 명도','color.warmth':'a 온도','color.saturation':'b 채도','color.mode':'모드','color.modeOklab':'Oklab 통계 전송','color.modeHist':'히스토그램 매칭','grain.title':'그레인 매칭','grain.amount':'강도','grain.size':'크기','grain.type':'유형','grain.luma':'Luma Grain 명도 그레인','grain.color':'Color Grain 컬러 그레인','grain.film':'Film Halation 필름 헤일레이션','grain.hint':'권장 강도는 12~25입니다. 더 강한 필름 질감을 원하면 높여 보세요.','toon.title':'툰 셰이딩','toon.blur':'부드럽게','toon.edge':'윤곽선','toon.width':'두께','toon.colorLabel':'선 색상','toon.dark':'어두운 선','toon.black':'검은 선','toon.colored':'컬러 외곽선','toon.hint':'Surface Blur와 Sobel 에지 추출로 AI 배경과 캐릭터 이미지의 선 표현을 맞춥니다.','status.needRef':'먼저 기준 이미지를 업로드하세요','status.needTargets':'대상 이미지를 추가하세요','status.ready':'기준 준비 완료, {count}장 처리 대기','status.done':'출력 {count}개 완료','status.processing':'처리 중...','status.applying':'스타일 적용 중','status.complete':'완료! {count}장을 처리했습니다','status.completeTop':'이미지 {count}장 완료','button.apply':'스타일 적용','thumb.done':'완료','thumb.pending':'대기 중','thumb.remove':'삭제','download.item':'이미지 {count} 다운로드','download.all':'전체 다운로드'
   }
 };
-let currentLang=localStorage.getItem('asu-lang')||'zh-Hant';
+const urlLang=new URLSearchParams(location.search).get('lang');
+let currentLang=translations[urlLang]?urlLang:(localStorage.getItem('asu-lang')||'zh-Hant');
 function tr(key,vars={}){
   const dict=translations[currentLang]||translations['zh-Hant'];
   let text=dict[key]||translations['zh-Hant'][key]||key;
@@ -563,6 +564,9 @@ function applyLanguage(lang){
   currentLang=translations[lang]?lang:'zh-Hant';
   document.documentElement.lang=currentLang;
   localStorage.setItem('asu-lang',currentLang);
+  const url=new URL(location.href);
+  url.searchParams.set('lang',currentLang);
+  history.replaceState(null,'',url);
   byId('langSelect').value=currentLang;
   document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=tr(el.dataset.i18n);});
   chk();
